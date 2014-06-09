@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <UIKit/UIScreenEdgePanGestureRecognizer.h>
 
 @interface ViewController : UIViewController
 
