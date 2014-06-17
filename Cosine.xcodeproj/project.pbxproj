@@ -21,6 +21,9 @@
 		8C7E7EE9193C719000D13743 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C7E7ECB193C719000D13743 /* UIKit.framework */; };
 		8C7E7EF1193C719000D13743 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C7E7EEF193C719000D13743 /* InfoPlist.strings */; };
 		8C7E7EF3193C719000D13743 /* CosineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7E7EF2193C719000D13743 /* CosineTests.m */; };
+		8CC801A8194631AC00776293 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC801A7194631AC00776293 /* GLKit.framework */; };
+		8CC801AA194631C900776293 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC801A9194631C900776293 /* QuartzCore.framework */; };
+		8CC801AC194631DB00776293 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC801AB194631DB00776293 /* OpenGLES.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		8C7E7EEE193C719000D13743 /* CosineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CosineTests-Info.plist"; sourceTree = "<group>"; };
 		8C7E7EF0193C719000D13743 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8C7E7EF2193C719000D13743 /* CosineTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CosineTests.m; sourceTree = "<group>"; };
+		8CC801A7194631AC00776293 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		8CC801A9194631C900776293 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8CC801AB194631DB00776293 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CC801AC194631DB00776293 /* OpenGLES.framework in Frameworks */,
+				8CC801AA194631C900776293 /* QuartzCore.framework in Frameworks */,
+				8CC801A8194631AC00776293 /* GLKit.framework in Frameworks */,
 				8C7E7ECA193C719000D13743 /* CoreGraphics.framework in Frameworks */,
 				8C7E7ECC193C719000D13743 /* UIKit.framework in Frameworks */,
 				8C7E7EC8193C719000D13743 /* Foundation.framework in Frameworks */,
@@ -101,6 +110,9 @@
 		8C7E7EC6193C719000D13743 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8CC801AB194631DB00776293 /* OpenGLES.framework */,
+				8CC801A9194631C900776293 /* QuartzCore.framework */,
+				8CC801A7194631AC00776293 /* GLKit.framework */,
 				8C7E7EC7193C719000D13743 /* Foundation.framework */,
 				8C7E7EC9193C719000D13743 /* CoreGraphics.framework */,
 				8C7E7ECB193C719000D13743 /* UIKit.framework */,
@@ -382,6 +394,7 @@
 				GCC_PREFIX_HEADER = "Cosine/Cosine-Prefix.pch";
 				INFOPLIST_FILE = "Cosine/Cosine-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -395,6 +408,7 @@
 				GCC_PREFIX_HEADER = "Cosine/Cosine-Prefix.pch";
 				INFOPLIST_FILE = "Cosine/Cosine-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -458,6 +472,7 @@
 				8C7E7EF8193C719000D13743 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8C7E7EF9193C719000D13743 /* Build configuration list for PBXNativeTarget "CosineTests" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +481,7 @@
 				8C7E7EFB193C719000D13743 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

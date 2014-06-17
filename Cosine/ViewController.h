@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GLKit/GLKit.h>
+#import <GLKit/GLKViewController.h>
+
 #import <UIKit/UIScreenEdgePanGestureRecognizer.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : GLKViewController <GLKViewDelegate, GLKViewControllerDelegate>
+
+@property (strong, nonatomic) EAGLContext *ctx;
 
 @end
