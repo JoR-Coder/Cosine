@@ -12,8 +12,10 @@
 
 #import <UIKit/UIScreenEdgePanGestureRecognizer.h>
 
-@interface ViewController : GLKViewController <GLKViewDelegate, GLKViewControllerDelegate>
+@interface ViewController : GLKViewController <GLKViewDelegate, GLKViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (strong, nonatomic) EAGLContext *ctx;
+
+@property (weak, nonatomic) IBOutlet UIPickerView *PresetPicker;
 
 @end

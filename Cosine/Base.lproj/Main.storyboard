@@ -33,36 +33,21 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ar1-gH-pA2" userLabel="PresetsTableView">
-                                        <rect key="frame" x="91" y="20" width="369" height="285"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="presetCell" id="nYM-Cv-tEx">
-                                                <rect key="frame" x="0.0" y="22" width="369" height="44"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="presetCell" tableViewCell="nYM-Cv-tEx" id="435-2X-48i">
-                                                    <rect key="frame" x="0.0" y="0.0" width="369" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </tableViewCellContentView>
-                                            </tableViewCell>
-                                        </prototypes>
-                                    </tableView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Resolution:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIf-9H-7h0">
                                         <rect key="frame" x="20" y="336" width="87" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Xiy-oS-3vH">
-                                        <rect key="frame" x="147" y="332" width="315" height="31"/>
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.20000000000000001" minValue="0.10000000000000001" maxValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="Xiy-oS-3vH">
+                                        <rect key="frame" x="172" y="332" width="290" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <action selector="thicknessChanged:" destination="CNE-Ex-Kni" eventType="valueChanged" id="QrV-kX-Pep"/>
                                         </connections>
                                     </slider>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cZL-Di-UaV">
-                                        <rect key="frame" x="115" y="332" width="26" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cZL-Di-UaV">
+                                        <rect key="frame" x="115" y="332" width="49" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -87,18 +72,26 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="COB-iR-AqH">
-                                        <rect key="frame" x="115" y="434" width="26" height="30"/>
+                                        <rect key="frame" x="115" y="434" width="49" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Zru-7N-XMb">
-                                        <rect key="frame" x="147" y="434" width="315" height="31"/>
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="16" minValue="16" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="Zru-7N-XMb">
+                                        <rect key="frame" x="172" y="434" width="290" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <action selector="linesChanged:" destination="CNE-Ex-Kni" eventType="valueChanged" id="diN-Ew-12z"/>
                                         </connections>
                                     </slider>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3vF-0c-KvZ">
+                                        <rect key="frame" x="91" y="20" width="369" height="216"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="CNE-Ex-Kni" id="vQN-i7-sI8"/>
+                                            <outlet property="delegate" destination="CNE-Ex-Kni" id="6Xx-r8-yqE"/>
+                                        </connections>
+                                    </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
@@ -121,7 +114,7 @@
                         <outlet property="GL" destination="1Ry-Bu-8io" id="oVk-Kx-dRm"/>
                         <outlet property="LinesSlider" destination="Zru-7N-XMb" id="eM5-lR-X0e"/>
                         <outlet property="LinesView" destination="COB-iR-AqH" id="RWO-Sf-L2a"/>
-                        <outlet property="RootView" destination="1Ry-Bu-8io" id="DX2-Uw-J90"/>
+                        <outlet property="PresetPicker" destination="3vF-0c-KvZ" id="0EN-el-cEw"/>
                         <outlet property="SettingsView" destination="NfS-4P-7KX" id="yDP-h7-eyW"/>
                         <outlet property="ThicknessSlider" destination="Xiy-oS-3vH" id="GvR-iU-a0z"/>
                         <outlet property="ThicknessView" destination="cZL-Di-UaV" id="3fJ-WI-3kv"/>
