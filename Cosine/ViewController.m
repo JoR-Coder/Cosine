@@ -7,9 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "Cosine.h"
 
 @interface ViewController ()
 
+// TODO: For future reference, check out SWRevealViewController
 @property (weak, nonatomic) IBOutlet UIView *SettingsView;
 @property (strong, nonatomic) IBOutlet GLKView *GL;
 
@@ -23,48 +25,37 @@
 
 @property (strong, nonatomic) GLKBaseEffect *effect;
 
+@property (nonatomic) Cosine *cosinus;
+
 @property (nonatomic) NSMutableDictionary *Settings;
 @property (nonatomic) NSMutableArray *Presets;
-@property (nonatomic) int PresetInUse;
 
-@property (nonatomic) float Grad;
+@property (nonatomic) float Grad, dx, dy;
+
+@property (nonatomic) CGPoint startPoint;
 
 @end
 
 @implementation ViewController
 
-#define RADIAN          0.0174539252
+#define MIN_LINES	   16
 #define MAX_LINES     360
 #define MIN_THICKNESS   0.06
 #define MAX_THICKNESS   1.0
 
-#define X1 0
-#define Y1 1
-#define Z1 2
-#define X2 3
-#define Y2 4
-#define Z2 5
 
-#define P_NAME      0
-#define P_X1		1
-#define P_Y1		2
-#define P_Z1		3
-#define P_X2		4
-#define P_Y2		5
-#define P_Z2		6
-#define P_LINES     7
-#define P_THICKNESS 8
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	// Add SwipeRight from left Edge.
 	UIScreenEdgePanGestureRecognizer *swipeRight = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(userSwipedRight:)];
 	swipeRight.edges = UIRectEdgeLeft;
 	[self.GL addGestureRecognizer:swipeRight];
 	
-	
+	// Reset settings.
 	self.Grad = 0;
-	self.PresetInUse = 0;
 
 	[self setupSettings];
 	[self setupGL];
@@ -93,43 +84,31 @@
 		self.AnimateSwitch.on = NO;
 	}
 
-	self.ThicknessSlider.value = [[self.Settings objectForKey:@"Thickness"] floatValue];
+	int lines = self.cosinus.Predefs.Lines;
+	float thickness = self.cosinus.Predefs.Thickness;
+
 	self.ThicknessSlider.minimumValue = MIN_THICKNESS;
 	self.ThicknessSlider.maximumValue = MAX_THICKNESS;
-	self.ThicknessView.text = [[self.Settings objectForKey:@"Thickness"] stringValue];
-	self.LinesSlider.value = [[self.Settings objectForKey:@"Lines"] intValue];
+
+	self.ThicknessView.text = [NSString stringWithFormat:@"%1.2f", thickness];
+	self.ThicknessSlider.value = thickness;
+
+
+	self.LinesSlider.minimumValue = MIN_LINES;
 	self.LinesSlider.maximumValue = MAX_LINES;
-	self.LinesView.text = [[self.Settings objectForKey:@"Lines"] stringValue];
-	
+
+	self.LinesView.text = [@(lines) stringValue];
+	self.LinesSlider.value = lines;
 }
 
 
 -(void)loadSettings{
 
 	self.Settings = [[NSMutableDictionary alloc] init];
-	[self.Settings setObject:@90  forKey:@"Lines"];
-	[self.Settings setObject:@60  forKey:@"Animate speed"];
-	[self.Settings setObject:@0.5 forKey:@"Thickness"];
 	[self.Settings setObject:@YES forKey:@"Animate"];
-//	[self.Settings setObject:@64 forKey:@"Lines"];
-/*	[self.Settings setObject:@64 forKey:@"Lines"];
-	[self.Settings setObject:@64 forKey:@"Lines"];
-	[self.Settings setObject:@64 forKey:@"Lines"];
-	*/
+	[self.Settings setObject:@60 forKey:@"Animate speed"];
 
-	self.Presets = [[NSMutableArray alloc] init];
-
-	//																			  x1   y1  z1  x2  y2  z2  lin  thick
-	[self.Presets addObject:[[NSMutableArray alloc] initWithArray:@[ @"Mysti1",   @1,  @2, @1, @2, @1, @1, @64, @0.15]] ];
-	[self.Presets addObject:[[NSMutableArray alloc] initWithArray:@[ @"Mysti2",   @2,  @1, @1, @1, @2, @1, @32, @0.10]] ];
-	[self.Presets addObject:[[NSMutableArray alloc] initWithArray:@[ @"Apple1",   @3,  @1, @1, @3, @1, @1, @90, @0.24]] ];
-	[self.Presets addObject:[[NSMutableArray alloc] initWithArray:@[ @"Apple2",   @2,  @3, @1, @3, @2, @1, @90, @0.25]] ];
-	[self.Presets addObject:[[NSMutableArray alloc] initWithArray:@[ @"Apple3",   @3,  @3, @1, @2, @2, @1, @360, @0.55]] ];
-	[self.Presets addObject:[[NSMutableArray alloc] initWithArray:@[ @"Apple4",   @3,  @3, @1, @1, @1, @1, @275, @0.60]] ];
-	[self.Presets addObject:[[NSMutableArray alloc] initWithArray:@[ @"Apple5",   @3,  @2, @1, @1, @2, @1, @90, @0.2]] ];
-	[self.Presets addObject:[[NSMutableArray alloc] initWithArray:@[ @"Diamond1", @2,  @2, @2, @3, @3, @2, @360, @0.5]] ];
-	[self.Presets addObject:[[NSMutableArray alloc] initWithArray:@[ @"Diamond2", @2,  @2, @2, @3, @3, @2, @90, @0.25]] ];
-	
+	self.cosinus = [[Cosine alloc] init];
 }
 
 
@@ -143,6 +122,7 @@
 	}
 	
 	self.preferredFramesPerSecond = (int)self.Settings[@"Animate speed"];
+
 	self.GL.context = self.ctx;
 	self.delegate = self;
 	
@@ -158,23 +138,53 @@
 }
 
 
+-(void)setLines:(int)lines{
+
+	
+	self.cosinus.Predefs.Lines = lines;
+	
+	self.LinesView.text = [@(lines) stringValue];
+	self.LinesSlider.value = lines;
+}
+
+
+-(void)setThickness:(int)thickness{
+	
+}
+
+
 #pragma mark - PickerView stuff...
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+
 	return 1;
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-	return self.Presets.count;
+
+	return self.cosinus.Predefs.count;
 }
 
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-	return [self.Presets objectAtIndex:row][0];
+	
+	return [self.cosinus.Predefs nameAtIndex:row];
 }
 
+
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-	self.PresetInUse = row;
+
+	[self.cosinus.Predefs usePreset:row];
+
+	int lines = self.cosinus.Predefs.Lines;
+	float thickness = self.cosinus.Predefs.Thickness;
+
+	self.ThicknessView.text = [NSString stringWithFormat:@"%1.2f", thickness];
+	self.ThicknessSlider.value = thickness;
+	
+	self.LinesView.text = [@(lines) stringValue];
+	self.LinesSlider.value = lines;
+	
 }
 
 
@@ -184,8 +194,8 @@
 -(void)glkView:(GLKView *)view drawInRect:(CGRect)rect{
 	
 	static GLfloat vertices[] = {
-		-1.0f, -1.0f, 1.0,
-		 0.2f,  0.2,  1.0
+		0.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f
 	};
 	
 	static const GLubyte colors[] = {
@@ -211,50 +221,28 @@
 	
 	glLineWidth(1.0f);
 	
-	//int lines = [[self.Settings objectForKey:@"Lines"] intValue];
-	int lines =       [self.Presets[self.PresetInUse][P_LINES] intValue];
-	float thickness = [self.Presets[self.PresetInUse][P_THICKNESS] floatValue];
+
+	int lines = self.cosinus.Predefs.Lines;
+	float thickness = self.cosinus.Predefs.Thickness;
 
 	if (self.AnimateSwitch.on) {
 		for (float i = self.Grad; i < (self.Grad+lines); i+=thickness ) {
-			
-			float rad1 = ([self.Presets[self.PresetInUse][P_X1] floatValue]*i)*RADIAN;
-			float rad2 = ([self.Presets[self.PresetInUse][P_Y1] floatValue]*i)*RADIAN;
-			float rad3 = ([self.Presets[self.PresetInUse][P_X2] floatValue]*i)*RADIAN;
-			float rad4 = ([self.Presets[self.PresetInUse][P_Y2] floatValue]*i)*RADIAN;
-			float rad5 = ([self.Presets[self.PresetInUse][P_Z1] floatValue]*i)*RADIAN;
 
-			vertices[X1] = cos(rad1)*cos((2*self.Grad)*RADIAN);
-			vertices[Y1] = sin(rad2)*0.95; //sin(self.Grad*RADIAN);
-			vertices[X2] = cos(rad3)*cos(self.Grad*RADIAN);
-			vertices[Y2] = sin(rad4)*0.95; //sin((2*self.Grad)*RADIAN);
-			vertices[Z1] = cos(rad5)*0.7;
-			vertices[Z2] = sin(rad5)*0.7;
+			[self.cosinus calculate:vertices forGrad:i atAngle:self.Grad];
 			
-			glRotatef(self.Grad, 0.2, 0.9, 0.1);
 			glDrawArrays(GL_LINE_STRIP, 0, 2);
 		}
 	}else {
 		for (float i = 0; i < 360; i+=thickness ) {
 			
-			float rad1 = [self.Presets[self.PresetInUse][P_X1] floatValue]*i*RADIAN;
-			float rad2 = [self.Presets[self.PresetInUse][P_Y2] floatValue]*i*RADIAN;
-			float rad3 = [self.Presets[self.PresetInUse][P_X2] floatValue]*i*RADIAN;
-			float rad4 = [self.Presets[self.PresetInUse][P_Y2] floatValue]*i*RADIAN;
-			float rad5 = [self.Presets[self.PresetInUse][P_Z1] floatValue]*i*RADIAN;
-			
-			vertices[X1] = cos(rad1)*cos(RADIAN);
-			vertices[Y1] = sin(rad2)*0.95;
-			vertices[X2] = cos(rad3)*0.95;
-			vertices[Y2] = sin(rad4)*sin(RADIAN);
-			vertices[Z1] = cos(rad5)*0.3;
-			vertices[Z2] = sin(rad5)*0.3;
-			
+			[self.cosinus calculate:vertices forGrad:i atAngle:0];
+
 			glDrawArrays(GL_LINE_STRIP, 0, 2);
-			self.paused = YES;
+			// self.paused = YES;
 		}
 		
 	}
+	
 	
 	glDisableVertexAttribArray(GLKVertexAttribPosition);
 	glDisableVertexAttribArray(GLKVertexAttribColor);
@@ -271,25 +259,50 @@
 }
 
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+
+	UITouch *touch = [touches anyObject];
+	self.startPoint = [touch locationInView:self.view];
+	NSLog(@"Start -> x: %f, y: %f", self.startPoint.x, self.startPoint.y);
+
+	
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+	UITouch *touch = [touches anyObject];
+	
+	CGPoint point = [touch locationInView:self.view];
+	self.dx = point.x - self.startPoint.x;
+	self.dy = point.y - self.startPoint.y;
+	
+	self.cosinus.Predefs.Lines += (self.dx*0.1);
+	
+	NSLog(@"Drag -> x: %f, y: %f", self.dx, self.dy);
+	
+}
+
 
 #pragma mark - Controllers
 
 - (IBAction)thicknessChanged:(UISlider *)sender {
+
 	float thickness = sender.value;
+
 	if (thickness < MIN_THICKNESS) {
 		thickness = MIN_THICKNESS;
 	}
 	
-	// [self.Settings setObject:[NSNumber numberWithFloat:thickness] forKey:@"Thickness"];
+	// self.Presets[self.PresetInUse][P_THICKNESS] = @(thickness);
+	self.cosinus.Predefs.Thickness = thickness;
 	self.ThicknessView.text = [NSString stringWithFormat:@"%1.2f", thickness];
-	self.Presets[self.PresetInUse][P_THICKNESS] = @(thickness);
-
 }
 
 - (IBAction)linesChanged:(UISlider *)sender {
+
 	int lines = sender.value;
 	
-	self.Presets[self.PresetInUse][P_LINES] = @(lines);
+	//self.Presets[self.PresetInUse][P_LINES] = @(lines);
+	self.cosinus.Predefs.Lines = lines;
 	self.LinesView.text = [@(lines) stringValue];
 }
 

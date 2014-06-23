@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C2021C41957581A004479B2 /* Cosine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2021C31957581A004479B2 /* Cosine.m */; };
+		8C2021C719575872004479B2 /* Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2021C619575872004479B2 /* Presets.m */; };
 		8C7E7EC8193C719000D13743 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C7E7EC7193C719000D13743 /* Foundation.framework */; };
 		8C7E7ECA193C719000D13743 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C7E7EC9193C719000D13743 /* CoreGraphics.framework */; };
 		8C7E7ECC193C719000D13743 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C7E7ECB193C719000D13743 /* UIKit.framework */; };
@@ -37,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C2021C21957581A004479B2 /* Cosine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cosine.h; sourceTree = "<group>"; };
+		8C2021C31957581A004479B2 /* Cosine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cosine.m; sourceTree = "<group>"; };
+		8C2021C519575872004479B2 /* Presets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Presets.h; sourceTree = "<group>"; };
+		8C2021C619575872004479B2 /* Presets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Presets.m; sourceTree = "<group>"; };
 		8C7E7EC4193C719000D13743 /* Cosine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C7E7EC7193C719000D13743 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8C7E7EC9193C719000D13743 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -88,6 +94,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C2021C819578293004479B2 /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				8C2021C21957581A004479B2 /* Cosine.h */,
+				8C2021C31957581A004479B2 /* Cosine.m */,
+				8C2021C519575872004479B2 /* Presets.h */,
+				8C2021C619575872004479B2 /* Presets.m */,
+			);
+			name = Calculator;
+			sourceTree = "<group>";
+		};
 		8C7E7EBB193C718F00D13743 = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +141,7 @@
 		8C7E7ECD193C719000D13743 /* Cosine */ = {
 			isa = PBXGroup;
 			children = (
+				8C2021C819578293004479B2 /* Calculator */,
 				8C7E7ED6193C719000D13743 /* AppDelegate.h */,
 				8C7E7ED7193C719000D13743 /* AppDelegate.m */,
 				8C7E7ED9193C719000D13743 /* Main.storyboard */,
@@ -261,9 +279,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C2021C41957581A004479B2 /* Cosine.m in Sources */,
 				8C7E7EDE193C719000D13743 /* ViewController.m in Sources */,
 				8C7E7ED8193C719000D13743 /* AppDelegate.m in Sources */,
 				8C7E7ED4193C719000D13743 /* main.m in Sources */,
+				8C2021C719575872004479B2 /* Presets.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
